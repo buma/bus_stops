@@ -36,10 +36,10 @@ $("#find").submit(function(e) {
             findme_marker.setOpacity(1);
             findme_marker.setLatLng([chosen_place.lat, chosen_place.lon]);
 
-            $('#instructions').html('We found it! Click and drag the marker to sit on your business, then you are ready to <a href="#details">add details to your business listing</a>.');
+            $('#instructions').html('Našli smo naslov! Prestavite marker na lokacijo avtobusne postaje, nato dodajte <a href="#details">podrobnosti</a>.');
             $('.step-2 a').attr('href', '#details');
         } else {
-            $('#instructions').html('<strong>We couldn\'t find your address.</strong> Try searching for your street or city without the address.');
+            $('#instructions').html('<strong>Nismo mogli najti vašega naslova.</strong> Poskusite iskati samo ime ceste ali pa samo mesta.');
         }
         $("#findme").removeClass("loading");
     });
