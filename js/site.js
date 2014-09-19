@@ -70,7 +70,7 @@ $(window).on('hashchange', function() {
 $("#collect-data-done").click(function() {
     location.hash = '#done';
 
-    var note_body = "onosm.org submitted note for a bus_stop:\n"; 
+    var note_body = "http://buma.github.io/bus_stops submitted note for a bus_stop:\n"; 
     var name = $("#name").val(); 
     var alt_name = $("#alt_name").val(); 
     var covered = $("#covered").is(":checked"); 
