@@ -86,14 +86,29 @@ $(window).on('hashchange', function() {
 $("#collect-data-done").click(function() {
     location.hash = '#done';
 
-    var note_body = "onosm.org submitted note from a business:\n" +
-        "name: " + $("#name").val() + "\n" +
-        "phone: " + $("#phone").val() + "\n" +
-        "website: " + $("#website").val() + "\n" +
-        "twitter: " + $("#twitter").val() + "\n" +
-        "hours: " + $("#opening_hours").val() + "\n" +
-        "category: " + $("#category").val() + "\n" +
-        "address: " + $("#address").val(),
+    var note_body = "onosm.org submitted note for a bus_stop:\n"; 
+    var name = $("#name").val(); 
+    var alt_name = $("#alt_name").val(); 
+    var covered = $("#covered").is(":checked"); 
+    var shelter = $("#shelter").is(":checked"); 
+    var bench_yes = $("#bench_yes").is(":checked"); 
+    var bench_no = $("#bench_no").is(":checked"); 
+    if (name !== '') {
+        note_body += "name: " + name + "\n"; 
+    }
+    if (alt_name !== '') {
+        note_body += "alt_name: " + alt_name + "\n"; 
+    }
+    if (covered === true) {
+        note_body += "covered: Yes\n";
+    } else if (shelter === true) {
+        note_body += "shelter: Yes\n";
+    }
+    if (bench_yes === true) {
+        note_body += "bench: Yes\n";
+    } else if (bench_no === true) {
+        note_body += "bench: No\n";
+    }
         latlon = findme_marker.getLatLng(),
         qwarg = {
             lat: latlon.lat,

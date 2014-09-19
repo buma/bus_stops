@@ -77,3 +77,7 @@ button {
 .mr {
     margin-right:10px;
 }
+
+label.radio_label {
+	display:inline-block;
+}

@@ -64,18 +64,22 @@
                         <input id='category' data-placeholder='Pick a category...' class='col10' />
                     </div>
                     <div class='col6'>
-                        <label for='name'>Name</label>
-                        <input id='name' type='text' placeholder='ACME Parts' />
-                        <label for='phone'>Phone Number</label>
-                        <input id='phone' type='text' placeholder='414-555-1212' />
+                        <label for='name'>Ime</label>
+                        <input id='name' type='text' />
+                        <label for='alt_name'>Alternativno ime(če obstaja)</label>
+                        <input id='alt_name' type='text' />
                     </div>
                     <div>
-                        <label for='website'>Website</label>
-                        <input id='website' type='text' placeholder='http://www.example.com/' />
-                        <label for='twitter'>Twitter</label>
-                        <input id='twitter' type='text' placeholder='@example' />
-                        <label for='opening_hours'>Hours</label>
-                        <input id='opening_hours' type='text' placeholder='Monday-Friday 10am to 8pm' />
+						<label>Sedenje</label>
+						<input type="radio" name="bench" id="bench_yes" value="Yes"/>
+                        <label class="radio_label" for='bench_yes'>Klop</label>
+						<input type="radio" name="bench" id="bench_no" value="No" />
+                        <label  class="radio_label"for='bench_no'>Brez klopi</label>
+						<label>Zavetje</label>
+						<input type="radio" name="shelter_type" id="covered" value="covered" />
+						<label class="radio_label"for='covered'>Samo streha prozorni zidovi.(Kjer je mrzlo če piha)</label><br />
+						<input type="radio" name="shelter_type" id="shelter" value="shelter"/>
+                        <label class="radio_label"for='shelter'>Streha in zidovi. (Kjer ni tako mrzlo če piha)</label>
                     </div>
                     <button class='col12' id='collect-data-done'><h4>Done!</h4></button>
                 </div>
