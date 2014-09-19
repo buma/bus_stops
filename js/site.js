@@ -45,6 +45,34 @@ $("#find").submit(function(e) {
     });
 });
 
+$("#findgeome").click(function(e) {
+    console.log("clicked");
+    $("#findgeome").addClass("loading");
+    $.geolocation.get({
+    win: function(position) {
+        console.log(position);
+        var center = L.latLng(position.coords.latitude, position.coords.longitude);
+        console.log(center);
+        findme_map.setView(center);
+        findme_marker.setOpacity(1);
+        findme_marker.setLatLng(center);
+        $('#instructions').html('Pridobili smo lokacijo! Prestavite marker na lokacijo avtobusne postaje, nato dodajte <a href="#details">podrobnosti</a>.');
+        $('.step-2 a').attr('href', '#details');
+        $("#findgeome").removeClass("loading");
+    },
+    fail:function(error) {
+        if (error.code === 1) {
+            $("#instructions").html('<strong>Prosim omogočite dostop do Geolokacije, če želite na tak način določiti lokacijo postaje</strong>');
+        } else if (error.code === 2) {
+            $("#instructions").html('Podatka o lokaciji žal nismo mogli pridobiti.');
+        } else if (error.code === 3) {
+            $("#instructions").html('Podatka o lokaciji žal nismo mogli pridobiti. Poskusite kasneje.');
+        }
+        $("#findgeome").removeClass("loading");
+    }
+    });
+});
+
 $(window).on('hashchange', function() {
     if (location.hash == '#details') {
         $('#collect-data-step').removeClass('hide');
