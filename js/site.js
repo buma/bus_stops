@@ -4,6 +4,7 @@ var findme_map = L.map('findme-map')
     osmAttrib = 'Map data © OpenStreetMap contributors',
     osm = L.tileLayer(osmUrl, {minZoom: 2, maxZoom: 18, attribution: osmAttrib}).addTo(findme_map),
     category_data = [];
+findme_map.locate({'watch': false, 'setView':true});
 
 var findme_marker = L.marker([0,0], {draggable:true}).addTo(findme_map);
 findme_marker.setOpacity(0);
