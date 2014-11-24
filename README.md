@@ -1,3 +1,3 @@
-# onosm.org
 
-An easy way to get a business on to OpenStreetMap.
+An easy way to add bus stop on to OpenStreetMap.
+Availible on http://buma.github.io/bus_stops/
