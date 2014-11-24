@@ -50,10 +50,10 @@ $("#findgeome").click(function(e) {
     $("#findgeome").addClass("loading");
     $.geolocation.get({
     win: function(position) {
-        console.log(position);
+        /*console.log(position);*/
         var center = L.latLng(position.coords.latitude, position.coords.longitude);
-        console.log(center);
-        findme_map.setView(center);
+        /*console.log(center);*/
+        findme_map.setView(center, 16);
         findme_marker.setOpacity(1);
         findme_marker.setLatLng(center);
         $('#instructions').html('Pridobili smo lokacijo! Prestavite marker na lokacijo avtobusne postaje, nato dodajte <a href="#details">podrobnosti</a>.');
