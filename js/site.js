@@ -6,6 +6,15 @@ var findme_map = L.map('findme-map')
     category_data = [];
 findme_map.locate({'watch': false, 'setView':true});
 
+$( document ).ready(function() {
+    if (geoPosition.init()) {
+        $("#findgeome").prop("disabled", false);
+    } else {
+        $("#findgeome").prop("disabled", true);
+    }
+
+});
+
 var findme_marker = L.marker([0,0], {draggable:true}).addTo(findme_map);
 findme_marker.setOpacity(0);
 
@@ -46,32 +55,38 @@ $("#find").submit(function(e) {
     });
 });
 
+function foundPosition(position) {
+    /*console.log(position);*/
+    var center = L.latLng(position.coords.latitude, position.coords.longitude);
+    /*console.log(center);*/
+    findme_map.setView(center, 16);
+    findme_marker.setOpacity(1);
+    findme_marker.setLatLng(center);
+    $('#instructions').html('Pridobili smo lokacijo! Prestavite marker na lokacijo avtobusne postaje, nato dodajte <a href="#details">podrobnosti</a>.');
+    $('.step-2 a').attr('href', '#details');
+    $("#findgeome").removeClass("loading");
+}
+
+function failPosition(error) {
+    if (error.code === 1) {
+        $("#instructions").html('<strong>Prosim omogočite dostop do Geolokacije, če želite na tak način določiti lokacijo postaje</strong>');
+    } else if (error.code === 2) {
+        $("#instructions").html('Podatka o lokaciji žal nismo mogli pridobiti.');
+    } else if (error.code === 3) {
+        $("#instructions").html('Podatka o lokaciji žal nismo mogli pridobiti. Poskusite kasneje.');
+    }
+    $("#findgeome").removeClass("loading");
+}
+
 $("#findgeome").click(function(e) {
     console.log("clicked");
     $("#findgeome").addClass("loading");
-    $.geolocation.get({
-    win: function(position) {
-        /*console.log(position);*/
-        var center = L.latLng(position.coords.latitude, position.coords.longitude);
-        /*console.log(center);*/
-        findme_map.setView(center, 16);
-        findme_marker.setOpacity(1);
-        findme_marker.setLatLng(center);
-        $('#instructions').html('Pridobili smo lokacijo! Prestavite marker na lokacijo avtobusne postaje, nato dodajte <a href="#details">podrobnosti</a>.');
-        $('.step-2 a').attr('href', '#details');
-        $("#findgeome").removeClass("loading");
-    },
-    fail:function(error) {
-        if (error.code === 1) {
-            $("#instructions").html('<strong>Prosim omogočite dostop do Geolokacije, če želite na tak način določiti lokacijo postaje</strong>');
-        } else if (error.code === 2) {
-            $("#instructions").html('Podatka o lokaciji žal nismo mogli pridobiti.');
-        } else if (error.code === 3) {
-            $("#instructions").html('Podatka o lokaciji žal nismo mogli pridobiti. Poskusite kasneje.');
-        }
-        $("#findgeome").removeClass("loading");
+    var geo_options = {
+        highAccuracy: true,
+        maximumAge: 30000, // 30 seconds
+        timeout: 60000 // 1 minute
     }
-    });
+    geoPosition.getCurrentPosition(foundPosition, failPosition, geo_options);
 });
 
 $(window).on('hashchange', function() {
